@@ -62,5 +62,43 @@ X / dh - deletes character before cursor
 s / ch- deletes character under cursor and puts you into insert
 
 
+Visual mode:
+v - character-wise visual mode
+V - for line-wise visual mode
+ctrl-v - for blockwise visual mode (operating on a chunk at the same position)
+
+Search and replace:
+/ - search for pattern, use n and N to move back and forth
+
+Change and repeat:
+/ - search for pattern
+cgn - change the next search hit
+<insert replacement> - then hit esc to finish
+4. - repeat replacement for next 4 occurrences OR press n to continue searching
+
+Find exact word:
+/\<your_exact_word\>
+
+Pasting:
+p/P - depending on copied word/line, paste below/right or paste above / left
+yy - yank whole line
+
+
+
+Vim Registers: storage for copy/paste/delete
+" - the unnamed/default register
+a-z - named registers 
+0 - yank register, stores the last thing you yanked
+1-9 - cut registers, stores the last 9 things you cut with delete/change 
+:reg - view contents in your register
+"ayy - yank line to register a
+"ap - paste from register
+"by2w - yank 2 words from cursor
+"b2p - paste twice from register
+
+
 my own mappings:
     enabled ctrl-hjkl in insert mode
+
+
+i
