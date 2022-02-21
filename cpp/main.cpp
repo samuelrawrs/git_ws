@@ -218,13 +218,14 @@ void ntu_basics() {
     }
 
     //char literals must use 'singlequotes', char and 8-bit signed integers are interchangeable
+    char a = 97;
+    printf("Value of char: %d",a);
+    printf("Value of char: %c",a);
+
 }
 
 
 void test(){
-    string &test;
-    test = "testing";
-    cout<<test.empty();
 }
 int main(){
     // learn_cout_cin();
@@ -232,7 +233,7 @@ int main(){
     // learn_printf();
     // learn_pointers();
     // learn_operators();
-    // ntu_basics();
-    test();
+    ntu_basics();
+    // test();
     return 0;
 }
