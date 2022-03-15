@@ -2,6 +2,7 @@
     This has been a long time coming...
 */
 #include <iostream>
+#include <iomanip> // for setprecision()
 using namespace std;
 
 float float_var = 1.25;
@@ -154,7 +155,7 @@ void ntu_learn_pointers(){
    //stopped at 2.4
 }
 
-void ntu_basics() {
+void ntu_basics_123() {
     //fundamental types: and at least __ bytes = 8*
     int signed_integer = 0; // 4 bytes, -2147483648 to 2147483647
     signed int similar_to_above_int;
@@ -196,12 +197,12 @@ void ntu_basics() {
 
     cout <<"number1: "<<number1<<"\n";
     cout <<"number2: "<<number2<<"\n";
-    cout <<"number3: "<<number3<<"\n";
-    cout <<"number4: "<<number4<<"\n";
+    cout <<"number3: "<<number3<<"\n"; 
+    cout <<"number4: "<<number4<<"\n"; // will print in dec
 
     // long literals is identified by suffix L, and LL for long long
     long long_number = 12345678L;     // Suffix 'L' for long
-    long sum = 123;              // int 123 auto-casts to long 123L so that "sum" can accept it
+    long sum = 123;              // int 123 auto-casts to long 123L so that "sum" of type long can accept it
     long long bigNumber = 987654321LL;  // Need suffix 'LL' for long long int
     cout <<"long_number: "<<long_number<<"\n";
 
@@ -218,22 +219,179 @@ void ntu_basics() {
     }
 
     //char literals must use 'singlequotes', char and 8-bit signed integers are interchangeable
-    char a = 97;
-    printf("Value of char: %d",a);
-    printf("Value of char: %c",a);
+    char a = 98;
+    char b = 'a';
+    printf("Value of char: %d \n",a);
+    printf("Value of char: %c \n",a);
+    printf("Value of char: %d \n",b); 
+    //printf depends on how you wanna read the variable as shown previously
+    //cout default is char unless you want int:
+    cout << (int)b <<endl;
+    
+    //common escape sequences
+    printf("carriage-return:\rreplace");
+    printf("newline: \n");
+    printf("tab: \t");
+    printf("\"double-quote\"");
+    printf("\'single-quote\'");
+    printf("back-slash \\");
+    printf("newline: \n");
+    // <cctype> header to check for type and case of chars
+    
+    // string literals -> double quotes instead of single for char
+    string directionMsg= "Turn Right";
+    string greetingMsg = "Hello";
+    string statusMsg = "";
+    cout << "Use \\\" to place \n a \" within\ta\tstring" << endl;
+    cout << directionMsg << "\n" <<endl;
 
+    // bool literals -> true and false ()
 }
 
+void ntu_basics_4(){
+    //4.1 Arithmetic Operators
+    int a = 5, b = 10, c = 15,d = 20;
+    printf("multiply: %d \n", a*b);
+    printf("division(floor): %d \n", c/b); // 15/10 = 1 remainder 5
+    printf("modulus(remainder): %d \n", c%b); // remainder 5
+    printf("addition/subtraction: %d \n", a+b-c);
+    // note that int/int produces an int i.e. 1/2 --> 0 (instead of 0.5)
+    // and also, cpp does NOT have an exponent operator, need to use #include <cmath> pow(2,3)
+    
+    //4.3 Mixed Type Operations
+    int e = 2, f = 3;
+    double g = 2.2, h = 3.3, i;
+    i = e + g ; //int 2 + double 2.2 -> double 2.0 + double 2.2 -> double 4.2 
+    printf("%d\n",i); //error because it's not decimal
+    printf("%lf\n",i); //lf is double (long float?)
+    cout << i << endl; // cout don't need define
+    
+    //4.4 Overflow/Underflow
+    int i1 = 2147483647; // max int, range of int is: [-2147483648, 2147483647]
+    cout << i1 + 1 << endl; //overflow from positive to -2147483648
+    cout << i1 + 2 << endl; //overflow to -2147483647
+    cout << i1 * i1 <<endl; // 1
+    
+    int i2 = -2147483648;     // min int
+    cout << i2 - 1 << endl;   // 2147483647 (underflow)
+    cout << i2 - 2 << endl;   // 2147483646
+    cout << i2 * i2 << endl;  // 0
 
-void test(){
+    //4.5 Compound Assignment Operators
+    cout << a << endl;
+    a+=5;  
+    cout << a << endl;
+    a++;
+    cout << a << endl;
+    a-=5;
+    cout << a << endl;
+    a--;
+    cout << a << endl;
+    a*=3;
+    cout << a << endl;
+    a/=3;
+    cout << a << endl;
+    a%=3;
+    cout << a << endl;
+    // basically assigning in place 
+    a = 1, b = 2;
+    --a; // pre-decrement, for itself is the same
+    cout << a << endl;
+    b = a--; // b = old a, a = new a
+    cout << a << endl;
+    cout << b << endl;
+    a = 1, b = 2;
+    b = ++a; // b = new a, a = new a
+    cout << a << endl;
+    cout << b << endl;
+    
+    cout << fixed << setprecision(1); // print floating point number in fixed format
+    int y = 3;
+    double z = y;
+    cout <<"z = " << z << endl; // type-casting
+    cout << (double)5 <<endl; // int 5 to double 5.0
+    double aDouble = 5.6; 
+    int anInt = (int)aDouble;
+    cout << anInt << endl;
+    
+    int staticcast = static_cast<int>(aDouble); //safer as compiler will throw error
+    cout << staticcast << endl;
+    
+    // 4.8 relational and logical operators
+    // ==, != , >, >=, <, <=, &&(AND), ||(OR), !(NOT), ^ (xor)
 }
+
+ntu_basics_5(){
+    // Conditional Flow Controls
+    if (true){
+    } else if(true){
+    }
+    else{
+    }
+
+
+    char oper; int num1=5, num2=3, result;
+    // cin >> oper;
+   // if break is missing, execution will flow through to the next case and end up on the last case. 
+    switch (oper){
+        case '+':
+            result = num1 + num2; break; //break is for switch or for/while loops case
+        case '-':
+            result = num1 - num2; break;  //break is for switch or for/while loops case
+        case '*':
+            result = num1 * num2; break;  //break is for switch or for/while loops case
+        default:
+            cout << "Unknown operator" <<endl;
+    }
+    cout << result << endl;
+    
+    // inline conditional operator:
+    int mark = 60;
+    cout << ((mark >= 50) ? "PASS" : "FAIL" )<< endl; // (condition ? true : false)
+
+    // Loop flow controls
+    int sum = 0;
+    for (int number = 1; number <= 1000; ++number){ // init;test;post-proc
+        sum += number;
+    }
+    cout << sum << endl;
+
+    int sum1 = 0, number1 = 1; // while(condition)-do
+    while (number1 <= 1000) {
+        sum1 += number1; 
+        ++number1; //increment number
+    }
+    cout << sum1 << endl;
+     
+    int sum2 = 0, number2 = 1;
+    do {                       // do-while(condition)
+        sum2 += number2;
+        ++number2;
+    } while (number2 <=1000);
+    
+    cout << sum2 << endl;
+    // difference between while-do and do-while is the order of the body and condition. in while-do, condition is tested first, then executed (might not be executed once)
+    // do-while, the body is executed then the condition is tested (will be executed at least once) 
+    // usually do-while is for input with validity check:
+    bool valid = false;
+    int number;
+    do {
+        cout << "Enter a number an int from 1-10:" << endl;
+        cin >> number;
+        
+        if (number >=1 && number <=10){
+            valid = true;
+        }
+    } while (!valid);
+}
+
 int main(){
     // learn_cout_cin();
     // variables();
     // learn_printf();
     // learn_pointers();
-    // learn_operators();
-    ntu_basics();
     // test();
+    // ntu_basics_4();
+    ntu_basics_5();
     return 0;
 }
