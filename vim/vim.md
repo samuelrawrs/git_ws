@@ -1,29 +1,70 @@
-# Vim Notes
+# **_Vim Notes_**
 
-```
+# Table of contents
+1. [Introduction](#introduction)
+2. [Some paragraph](#paragraph1)
+    1. [Sub paragraph](#subparagraph1)
+3. [Another paragraph](#paragraph2)
+4. [Testing]
+
+## This is the introduction <a name="introduction"></a>
+Some introduction text, formatted in heading 2 style
+
+## Some paragraph <a name="paragraph1"></a>
+The first paragraph text
+
+### Sub paragraph <a name="subparagraph1"></a>
+This is a sub paragraph, formatted in heading 3 style
+
+## Another paragraph <a name="paragraph2"></a>
+The second paragraph text
+
+
+## Movement
 h j k l - cursor movements (left down up right)
+
 g + j/k - navigate wrapped lines
+
 { - jump paragraph down
+
 } - jump paragraph up
+
 ctrl-u - move up
+
 ctrl-d - move down
+
 gg - move to top of file
+
 g_ - move to end of line (non-whitespace)
+
 ^ - move to start of line (non-whitespace)
+
 10gg - move to line 10
+
 G - move to end of file
+
 % jump to matching ({[]})
+
 O - new line (above)
+
 o - new line (underneath)
+
 i - insert at cursor
+
 I - insert text at the beginning of a line
+
 A - insert text at the end of a line
+
 a - append after cursor
+
 gi - return where you last made a change
 
-in insert mode:
+**in insert mode:**
+
 ctrl-h
+
 ctrl-w remove word
+
 ctrl-u remove line
 
 
@@ -100,5 +141,3 @@ a-z - named registers
 my own mappings:
     enabled ctrl-hjkl in insert mode
 
-
-i

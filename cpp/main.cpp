@@ -3,11 +3,24 @@
 */
 #include <iostream>
 #include <iomanip> // for setprecision()
+#include <vector> //include is evaluated before compile time (not runtime) so can't be in a function
+#include <cstring>
+
+
 using namespace std;
 
 float float_var = 1.25;
 
-
+ // [row][columns], below is fixed columns
+ // need to declare function outside of another, or use lambda
+void printArray(const int array[][3], int rows){
+    for (int i = 0; i < rows; ++i){
+        for (int j = 0 ; j < 3; ++j){
+            cout << array [i][j] << " ";
+        }
+        cout << endl;
+    }
+}
 void learn_printf()
 {
     char ch = 'A';
@@ -94,6 +107,7 @@ void learn_pointers(){
     int *foo = &ptr;  //declare a pointer variable foo pointing to an int, filled by &ptr, address of ptr
 
     printf("address of ptr is %p\n",&ptr);
+
     printf("foo is a pointer, equals to ptr:%p\n",foo);
     printf("you can also see what the pointer is pointing to (dereference) using *pointer, in this case expecting an int, %d\n", *foo);
 
@@ -262,7 +276,7 @@ void ntu_basics_4(){
     int e = 2, f = 3;
     double g = 2.2, h = 3.3, i;
     i = e + g ; //int 2 + double 2.2 -> double 2.0 + double 2.2 -> double 4.2 
-    printf("%d\n",i); //error because it's not decimal
+    // printf("%d\n",i); //error because it's not decimal
     printf("%lf\n",i); //lf is double (long float?)
     cout << i << endl; // cout don't need define
     
@@ -321,14 +335,13 @@ void ntu_basics_4(){
     // ==, != , >, >=, <, <=, &&(AND), ||(OR), !(NOT), ^ (xor)
 }
 
-ntu_basics_5(){
+int ntu_basics_5(){
     // Conditional Flow Controls
     if (true){
     } else if(true){
     }
     else{
     }
-
 
     char oper; int num1=5, num2=3, result;
     // cin >> oper;
@@ -356,23 +369,26 @@ ntu_basics_5(){
     }
     cout << sum << endl;
 
-    int sum1 = 0, number1 = 1; // while(condition)-do
-    while (number1 <= 1000) {
+    int sum1 = 0, number1 = 11; // while(condition)-do
+    while (number1 <= 10) {
         sum1 += number1; 
         ++number1; //increment number
+        printf("\nnumber1: %d",number1);
     }
-    cout << sum1 << endl;
+    // cout << sum1 << endl;
      
-    int sum2 = 0, number2 = 1;
+    int sum2 = 0, number2 = 11;
     do {                       // do-while(condition)
         sum2 += number2;
         ++number2;
-    } while (number2 <=1000);
+        printf("\nnumber2: %d",number2);
+    } while (number2 <=10);
     
-    cout << sum2 << endl;
+    // cout << sum2 << endl;
     // difference between while-do and do-while is the order of the body and condition. in while-do, condition is tested first, then executed (might not be executed once)
     // do-while, the body is executed then the condition is tested (will be executed at least once) 
     // usually do-while is for input with validity check:
+    // while-do is good for emergency stopping program i.e. sentinel value (indicates end of data) 
     bool valid = false;
     int number;
     do {
@@ -383,7 +399,142 @@ ntu_basics_5(){
             valid = true;
         }
     } while (!valid);
+
+    //breaking the flow with break and continue
+    //flows include for, while
+    //however, they are poor structures and are hard to read and follow, use only when absolutely necessary
+    //use a boolean flag instead: [isPrime = false] in your if statement
+    
+    int errorCount, errorCount2;
+    cout << "Enter errorCount" << endl;
+    cin >> errorCount; 
+    cout << "Enter errorCount2" << endl;
+    cin >> errorCount2; 
+
+    if (errorCount > 10) {
+        cout << "too many errors" << endl;
+        exit(-1); // -1 indicates abnormal termination, or abort()
+    }
+
+    else if (errorCount2 > 10)
+    {
+        cout << "another way to exit" << endl;
+        return -1;   
+    } 
+    return 0;
+    
 }
+
+void ntu_basics_7(){
+    string str1("Hello");
+    string str2 = "world";
+    string str3 = ("Hello");
+    string str4(str1);
+
+    cout << str2 <<endl;
+    // as shown in stringtest.cpp, for multiple arguments, use getline for whole line
+    // if you use cin, you need to flush cin buffer unless you wanna parse every argument
+    cout << str1.length() << endl;
+    cout << str1.size() << endl; // similar to previous
+    cout << str1.empty() << endl; //check if empty
+    str3 = str1 + " "+ str2 ; // concatenated
+    cout << str3 << endl;
+    cout << str1.at(0) << endl;
+    cout << str1[0] << endl; //similar to previous
+    cout << str1.at(str1.length()-1) << endl;
+    cout << str1[str1.length()-1] << endl; //similar
+    cout << str1.substr(2,4) << endl; //index including last one
+    
+    cout << str1 + str2 << endl;
+    cout << "str1 compared with str3: " << str1.compare(str3) << endl; 
+    if (str1 < str3){
+        cout << "str1 is less than str3" << endl;
+    }
+    
+    char c1= 'H', c2 = 'h';
+    printf("c1 is: %d, c2 is: %d", c1, c2);
+}
+
+void ntu_basics_8(){
+    //formatting input/output using IO manipulators <iomanip>
+    
+    //output formatting
+    double pi = 3.14159265;
+    cout << fixed << setprecision(4);
+    cout << pi << endl;
+    cout << "|" << setw(8) << pi << "|" << setw(10) << pi << "|" << endl;
+    cout << setfill('-');
+    cout << "|" << setw(8) << pi << "|" << setw(10) << pi << "|" << endl;
+    // setw is not sticky, setfill replaces the empty characters
+    cout << scientific; //e power of ...
+    cout << pi << endl;
+
+
+    //input formatting
+    string areaCode, phoneCode, inStr;
+    cout << "Enter your phone number in this format (XXX)XXX-XXXX" ;
+    cin.ignore(); // skip (
+    cin >> setw(4) >> areaCode; // indicates it looks for the next 4 characters
+    cout << areaCode << endl;
+
+}
+
+void ntu_basics_9(){
+    // array declaration
+    int marks[5]; // note: values are undefined after declaration
+    double numbers[10];
+    const int SIZE = 4;
+    float temps[SIZE]; //using const int as array length
+
+    cout << marks[0] << endl; // gives a random number coz undefined
+
+    int numbers1[] = {11,33,44} ;// if undefined, compiler counts the elements
+    int numbers2[6] = {11,33,44}; // the rest of the array is 0
+    cout << numbers2[4] <<endl;
+    //printing an array
+
+    int example_array[SIZE] = {1,2,3,4};
+    for (int i = 0 ; i<SIZE; ++i) cout << example_array[i] << " ";
+    cout << endl;
+
+    int numbers3[5] = {}; // all elements = 0
+    cout << "size of numbers3: " << sizeof(numbers3)/sizeof(numbers3[0]) << endl;
+    // count number of elements by diving sizeof(array)/sizeof(array[0])
+    
+    // note that you cannot change the array size at runtime, you need to use vector<int> instead
+    vector<int> array;
+    array.push_back(1);
+    array.push_back(2);
+    cout << array[1] << endl; 
+
+    cout << endl;
+    cout << "testing lambda array:" <<endl; 
+
+    auto lambdaArray = [=](const int array[][3], int rows){
+        for (int i = 0; i < rows; ++i){
+            for (int j = 0 ; j < 3; ++j){
+                cout << array [i][j] << " ";
+            }
+            cout << endl;
+        }
+    };
+    int myArray[][3] = {{8,2,4},{7,5,2}};
+    lambdaArray(myArray,2);
+    
+
+    char message[256]; //Declare a char array holding up to 255 characters
+    char str1[] = "Hello"; //Declare and initialise a "string literal", length of array is characters + 1 '\0
+    char str1char[] = {'H', 'e', 'l', 'l', 'o', '\0'};
+    string str2 = "Hello";
+    // cout << sizeof
+    cout << sizeof(str1) << endl;
+    cout << sizeof(str2) << endl; // prints the actual bytes
+    cout << str2.size() << endl; // use for string
+    cout << strcmp(str1, str1char) << endl; // returns 0, c-strings are equal
+}
+
+
+    
 
 int main(){
     // learn_cout_cin();
@@ -392,6 +543,9 @@ int main(){
     // learn_pointers();
     // test();
     // ntu_basics_4();
-    ntu_basics_5();
+    // ntu_basics_5();
+    // ntu_basics_7();
+    // ntu_basics_8();
+    ntu_basics_9();
     return 0;
 }
