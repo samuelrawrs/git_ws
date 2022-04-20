@@ -491,6 +491,7 @@ void ntu_basics_9(){
     int numbers1[] = {11,33,44} ;// if undefined, compiler counts the elements
     int numbers2[6] = {11,33,44}; // the rest of the array is 0
     cout << numbers2[4] <<endl;
+    
     //printing an array
 
     int example_array[SIZE] = {1,2,3,4};
@@ -533,7 +534,34 @@ void ntu_basics_9(){
     cout << strcmp(str1, str1char) << endl; // returns 0, c-strings are equal
 }
 
+namespace ntu_10{
+    auto max(int x, int y){
+        return (x > y) ? x : y;
+    };
+    int fun1(int, int = 1, int = 2); // function prototype
+    int fun1(int n1, int n2, int n3){
+        return (n1+n2+n3);
+    }
 
+    void fun2(int, double);  //version 1
+    void fun2(int, int, int); //version 2
+    void fun2(int integer1, double double1){ 
+        cout<<(max(integer1,double1))<<endl;
+    }
+    void fun2(int integer1, int integer2, int integer3){ 
+        printf("integer1: %d, integer2: %d, integer3: %d \n", integer1, integer2, integer3);
+    }
+}
+
+auto ntu_basics_10(){
+    using namespace ntu_10;
+    cout << max(1,2) << endl;
+    cout << fun1(1,2,3)<<endl;
+    cout << fun1(5)<< endl; //5+1+2
+    cout << fun1(5,6)<< endl; //5+6+2
+    fun2(2, 5.0);
+    fun2(1,2,3);
+}
     
 
 int main(){
@@ -546,6 +574,7 @@ int main(){
     // ntu_basics_5();
     // ntu_basics_7();
     // ntu_basics_8();
-    ntu_basics_9();
+    //ntu_basics_9();
+    ntu_basics_10();
     return 0;
 }
