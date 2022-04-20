@@ -5,8 +5,9 @@
 #include <iomanip> // for setprecision()
 #include <vector> //include is evaluated before compile time (not runtime) so can't be in a function
 #include <cstring>
-
-
+#include <cstdlib>
+#include <fstream> // file stream
+#include <ctime>
 using namespace std;
 
 float float_var = 1.25;
@@ -605,10 +606,66 @@ auto ntu_basics_10(){
     cout << sizeofarray(a2) << endl;
     
     cout << "SEARCHES" << endl;
-    const int SIZE = 8;
-    int a1[SIZE] = {8,4,5,3,2,8,2,3};
+    
+    cout << "RAND_MAX is " << RAND_MAX << endl;
 
+    for (int i = 0; i < 10; ++i){
+        cout << rand() % 100 << " "; // will get the same sequence everytime you run this
+    }
+    cout << endl;
+    srand(time(0)); //change the seed based on time
+
+    for (int i = 0; i < 10; ++i){
+        cout << rand() % 100 << " "; // will get the same sequence everytime you run this
+    }
 }
+
+void ntu_basics_11(){
+    ifstream fin;
+    ofstream fout;
+
+    fin.open("in.txt");
+    if (!fin.is_open()){
+        cerr << "error: open input file failed" << endl;
+        abort(); //Abnormally terminate the program
+    }
+    
+    int sum = 0, number, count = 0;
+    while (!(fin.eof())){
+        fin >> number;
+        sum += number;
+        ++count;
+    }
+    double average = double(sum) / count;
+    cout << "Count = " << count << " average = " << average << endl;
+    fin.close();
+    
+    fout.open("out.txt");
+    if (!fout.is_open()){
+        cerr << "error: open output file failed" << endl;
+        abort();
+    }
+
+    fout << average;
+    fout.close();
+    
+}
+
+namespace ntu_12 {
+    int foo;
+    int f(){
+        cout << "f" << endl;
+        return 0;
+    };
+};
+
+void ntu_basics_12(){
+    ntu_12::f();
+    namespace alias_12 = ntu_12;
+    using namespace alias_12;
+    f();
+}
+
     
 
 int main(){
@@ -622,6 +679,8 @@ int main(){
     // ntu_basics_7();
     // ntu_basics_8();
     //ntu_basics_9();
-    ntu_basics_10();
+    //ntu_basics_10();
+    //ntu_basics_11();
+    ntu_basics_12();
     return 0;
 }
