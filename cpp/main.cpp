@@ -542,7 +542,7 @@ namespace ntu_10{
     int fun1(int n1, int n2, int n3){
         return (n1+n2+n3);
     }
-
+    // function overloading
     void fun2(int, double);  //version 1
     void fun2(int, int, int); //version 2
     void fun2(int integer1, double double1){ 
@@ -550,6 +550,42 @@ namespace ntu_10{
     }
     void fun2(int integer1, int integer2, int integer3){ 
         printf("integer1: %d, integer2: %d, integer3: %d \n", integer1, integer2, integer3);
+    }
+    
+    // C++ does not allow functions to return an array
+    // To modify the contents of an array, you need to rely on pass-by-reference
+    void inc(int array[], int size);
+    void print(int array[], int size);
+    void inc(int array[], int size){
+        for (int i = 0; i < size; ++i){
+            array[i]++;
+        }
+    }
+    void print(int array[], int size){
+        cout << "{";
+        for (int i = 0; i < size; ++i){
+            cout << array[i];
+            if (i < size -1){
+                cout << ",";
+            }
+        }
+        cout << "}" << endl;
+    }
+    // below function doesn't work as expected because you're passing a pointer
+    // and not an array, what actually happens is sizeof (int *) / sizeof int
+    // size of an array should be parsed as a separate argument
+    int sizeofarray(int array[]){
+        return (sizeof(array)/sizeof(array[0]));
+    }
+    // refer to sizeofarray.cpp
+    
+    //SEARCHES
+
+    int linearSearch(const int a[], int size, int key){
+        for (int i = 0; i<size; ++i){
+            if (a[i] == key) return i;
+        }
+        return size;
     }
 }
 
@@ -561,6 +597,17 @@ auto ntu_basics_10(){
     cout << fun1(5,6)<< endl; //5+6+2
     fun2(2, 5.0);
     fun2(1,2,3);
+    int a1[] = {8, 4, 5, 3, 2};
+    // inc(a1,5);
+    print(a1, 5);
+    int a2[5] = {1,2,3,4,5};
+    std :: cout << sizeof(a2)/sizeof(a2[0]) << std::endl;
+    cout << sizeofarray(a2) << endl;
+    
+    cout << "SEARCHES" << endl;
+    const int SIZE = 8;
+    int a1[SIZE] = {8,4,5,3,2,8,2,3};
+
 }
     
 
